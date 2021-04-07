@@ -49,6 +49,15 @@
     outline: none;
 }
 
+.contenido .error{
+    color: #880000;
+    font-weight: bold;
+    margin: 0 auto;
+    width: 265px;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
 .contenido #btnCalcular{
     display: block;
     margin: 20px auto;
@@ -60,8 +69,13 @@
     font-weight: bold;
     cursor: pointer;
 }
+
 .contenido #btnCalcular:focus{
     outline: none;
+}
+
+.contenido #btnCalcular:hover{
+    background-color: #b9b7cf;
 }
 
 .contenido #btnCalcular:active{
@@ -71,4 +85,8 @@
 .contenido #resultado{  
     margin-top: 60px;
     text-align: center;
+}
+
+.contenido #resultado .result_number{
+    font-weight: bold;
 }

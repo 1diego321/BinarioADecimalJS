@@ -1,6 +1,7 @@
 var binario = document.getElementById('txtBinario');
 var btn = document.getElementById('btnCalcular');
 var resultado = document.getElementById('resultado');
+var error = document.getElementById('error');
 
 var validar = () => {
 
@@ -8,15 +9,14 @@ var validar = () => {
     let ok = true;
 
     if (text.length != 8) {
-        alert('El numero binario debe ser una cifra de 8 numeros');
-
+        error.innerText = 'El numero binario debe ser una cifra de 8 numeros';
         return false;
     }
 
     try {
         text.split('').forEach(x => {
             if (!(x == 1 || x == 0)) {
-                alert('Un numero binario debe contener solamente 1s y 0s');
+                error.innerText = 'Un numero binario debe contener solamente 1s y 0s';
                 ok = false;
                 throw BreakException;
             }
@@ -27,13 +27,30 @@ var validar = () => {
 }
 
 btn.addEventListener('click', function () {
-
     if (validar()) {
         calcular();
     }
 });
 
-binario.addEventListener('keydown',() =>{ resultado.innerText = 'Resultado:'});
+binario.addEventListener('keydown', function (e) {
+    if (!(e.key == '1' || e.key == '0' || e.key == 'Backspace')) {
+        e.preventDefault();
+        return;
+    }
+
+    resultado.innerText = 'Resultado:';
+
+    if (validar())
+        error.innerHTML = '';
+
+});
+
+binario.addEventListener('keyup', function (e) {
+    if (e.key == '1' || e.key == '0' || e.key == 'Backspace') {
+        if (validar())
+        error.innerHTML = '';
+    }
+});
 
 function calcular() {
     let text = binario.value.trim();
@@ -48,8 +65,6 @@ function calcular() {
         i++;
     });
 
-    i = 0;
-
-    resultado.innerText = 'Resultado: ' + result;
+    resultado.innerHTML = 'Resultado: <span class="result_number">' + result+'</span>';
 
 }
